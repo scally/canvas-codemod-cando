@@ -1,9 +1,9 @@
-require_relative '../app/replace_can_use'
+require_relative '../app/replace_can_do'
 
-describe 'ReplaceCanUse' do
+describe 'ReplaceCanDo' do
   def subject
     source = RuboCop::ProcessedSource.new code, 2.7
-    rewriter = ReplaceCanUse.new
+    rewriter = ReplaceCanDo.new
     rewriter.rewrite source.buffer, source.ast
   end
 
