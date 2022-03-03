@@ -1,0 +1,23 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'optparse'
+require_relative '../app/replace_can_do'
+
+root_dir = ''
+OptionParser.new do |o|
+  o.on '-dDIR' do |dir|
+    root_dir = dir
+  end
+end.parse!
+
+raise 'specify a directory with -d' if root_dir.empty?
+
+(Dir.glob(File.join(root_dir, '**/*.rb')) + Dir.glob(File.join(root_dir, '**/*.erb'))).each do |file|
+  puts "Processing file: #{file}"
+  source = RuboCop::ProcessedSource.from_file file, 2.7
+  rewriter = ReplaceCanDo.new
+  rewritten = rewriter.rewrite source.buffer, source.ast
+
+  File.write file, rewritten
+end

@@ -19,5 +19,4 @@ class ReplaceCanDo < Parser::TreeRewriter
   end
 end
 
-# TODO: Make it so I can use ruby-rewrite with this
 # TODO: BONUS: Make grants_any_right addable via ast, not magic strings
